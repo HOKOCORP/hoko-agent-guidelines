@@ -1,26 +1,18 @@
-# Karpathy-Inspired Claude Code Guidelines
+# HOKO Corp — AI Agent Coding Guidelines
 
-> Check out my new project [Multica](https://github.com/multica-ai/multica) — an open-source platform for running and managing coding agents with reusable skills.
->
-> Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
-
-A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
-
-English | [简体中文](./README.zh.md)
+HOKO Corp's standard `CLAUDE.md` for AI coding agents — behavioral guidelines that reduce the mistakes agents make most often.
 
 ## The Problems
 
-From Andrej's post:
+AI coding agents share a recurring set of failure modes:
 
-> "The models make wrong assumptions on your behalf and just run along with them without checking. They don't manage their confusion, don't seek clarifications, don't surface inconsistencies, don't present tradeoffs, don't push back when they should."
-
-> "They really like to overcomplicate code and APIs, bloat abstractions, don't clean up dead code... implement a bloated construction over 1000 lines when 100 would do."
-
-> "They still sometimes change/remove comments and code they don't sufficiently understand as side effects, even if orthogonal to the task."
+- **They make wrong assumptions and run with them** — without checking, seeking clarification, surfacing inconsistencies, presenting tradeoffs, or pushing back when they should.
+- **They overcomplicate** — bloating code and APIs, adding abstractions nobody asked for, and writing 1000 lines where 100 would do.
+- **They cause collateral damage** — changing or removing comments and code they don't fully understand, even when it's orthogonal to the task.
 
 ## The Solution
 
-Four principles in one file that directly address these issues:
+Six principles in one file that directly address these issues:
 
 | Principle | Addresses |
 |-----------|-----------|
@@ -28,8 +20,10 @@ Four principles in one file that directly address these issues:
 | **Simplicity First** | Overcomplication, bloated abstractions |
 | **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
 | **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
+| **Small Files, Single Purpose** | Large files, context bloat, unreliable edits |
+| **Reuse APIs Before Creating** | Duplicate endpoints, redundant APIs, inconsistent contracts |
 
-## The Four Principles in Detail
+## The Six Principles in Detail
 
 ### 1. Think Before Coding
 
@@ -45,6 +39,8 @@ LLMs often pick an interpretation silently and run with it. This principle force
 ### 2. Simplicity First
 
 **Minimum code that solves the problem. Nothing speculative.**
+
+Scope: *how much* logic and abstraction you write — not how it's split across files.
 
 Combat the tendency toward overengineering:
 
@@ -96,18 +92,40 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let the LLM loop independently. Weak criteria ("make it work") require constant clarification.
 
+### 5. Small Files, Single Purpose
+
+**Split code across small, single-purpose files. Agents read and edit small files more reliably than large ones.**
+
+Scope: *file and module layout* — not how much code you write.
+
+- One function, component, or module per file — where it doesn't hurt readability
+- Split a file once it grows past one clear responsibility
+- Large files bloat agent context and produce bigger, riskier diffs
+- A recommendation to improve quality, not a hard line limit
+
+### 6. Reuse APIs Before Creating
+
+**Check for an existing API before adding one. Extend or reuse before you build new.**
+
+LLMs reach for a fresh endpoint instead of finding the one that already exists:
+
+- Search for an existing endpoint that already does the job
+- If a similar API exists, extend or reuse it instead of duplicating
+- Create a new API only when nothing existing can reasonably be extended
+- Define HTTP APIs with an OpenAPI spec where possible — a single source of truth for clients and docs
+
 ## Install
 
 **Option A: Claude Code Plugin (recommended)**
 
 From within Claude Code, first add the marketplace:
 ```
-/plugin marketplace add forrestchang/andrej-karpathy-skills
+/plugin marketplace add hoko-corp/hoko-agent-guidelines
 ```
 
 Then install the plugin:
 ```
-/plugin install andrej-karpathy-skills@karpathy-skills
+/plugin install hoko-agent-guidelines@hoko-agent-guidelines
 ```
 
 This installs the guidelines as a Claude Code plugin, making the skill available across all your projects.
@@ -116,24 +134,22 @@ This installs the guidelines as a Claude Code plugin, making the skill available
 
 New project:
 ```bash
-curl -o CLAUDE.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
+curl -o CLAUDE.md https://raw.githubusercontent.com/hoko-corp/hoko-agent-guidelines/main/CLAUDE.md
 ```
 
 Existing project (append):
 ```bash
 echo "" >> CLAUDE.md
-curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
+curl https://raw.githubusercontent.com/hoko-corp/hoko-agent-guidelines/main/CLAUDE.md >> CLAUDE.md
 ```
 
 ## Using with Cursor
 
-This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
+This repository includes a committed Cursor project rule ([`.cursor/rules/hoko-agent-guidelines.mdc`](.cursor/rules/hoko-agent-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
 
 ## Key Insight
 
-From Andrej:
-
-> "LLMs are exceptionally good at looping until they meet specific goals... Don't tell it what to do, give it success criteria and watch it go."
+AI agents are exceptionally good at looping until they meet a specific goal. Don't just tell an agent what to do — give it success criteria and let it iterate.
 
 The "Goal-Driven Execution" principle captures this: transform imperative instructions into declarative goals with verification loops.
 
@@ -168,4 +184,6 @@ The goal is reducing costly mistakes on non-trivial work, not slowing down simpl
 
 ## License
 
-MIT
+Licensed under the [MIT License](LICENSE) — © 2026 HOKO CORP LIMITED.
+
+Open source and free to use, modify, and distribute. The one condition: keep the copyright notice and license text in any copy or substantial portion, so HOKO Corp is credited where this is used.

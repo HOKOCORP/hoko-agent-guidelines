@@ -1,27 +1,27 @@
 {
-  "name": "karpathy-skills",
-  "id": "karpathy-skills",
+  "name": "hoko-agent-guidelines",
+  "id": "hoko-agent-guidelines",
   "owner": {
-    "name": "forrestchang"
+    "name": "HOKO CORP LIMITED"
   },
   "metadata": {
-    "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations",
-    "version": "1.0.0"
+    "description": "HOKO Corp standard behavioral guidelines to reduce common LLM coding mistakes",
+    "version": "2.0.0"
   },
   "plugins": [
     {
-      "name": "andrej-karpathy-skills",
+      "name": "hoko-agent-guidelines",
       "source": "./",
-      "description": "Behavioral guidelines to reduce common LLM coding mistakes: Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution",
-      "version": "1.0.0",
+      "description": "Behavioral guidelines to reduce common LLM coding mistakes: Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution, Small Files Single Purpose, Reuse APIs Before Creating",
+      "version": "2.0.0",
       "author": {
-        "name": "forrestchang"
+        "name": "HOKO CORP LIMITED"
       },
       "keywords": [
         "guidelines",
         "best-practices",
         "coding",
-        "karpathy"
+        "hoko"
       ],
       "category": "workflow"
     }

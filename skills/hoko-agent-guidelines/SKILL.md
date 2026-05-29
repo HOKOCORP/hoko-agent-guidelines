@@ -1,12 +1,12 @@
 ---
-name: karpathy-guidelines
-description: Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
+name: hoko-agent-guidelines
+description: HOKO Corp's standard behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, define verifiable success criteria, keep files small, and reuse APIs before creating new ones.
 license: MIT
 ---
 
-# Karpathy Guidelines
+# HOKO Corp — AI Agent Coding Guidelines
 
-Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+HOKO Corp's standard behavioral guidelines to reduce common LLM coding mistakes.
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
@@ -23,6 +23,8 @@ Before implementing:
 ## 2. Simplicity First
 
 **Minimum code that solves the problem. Nothing speculative.**
+
+Scope: *how much* logic and abstraction you write - not how it's split across files.
 
 - No features beyond what was asked.
 - No abstractions for single-use code.
@@ -65,3 +67,23 @@ For multi-step tasks, state a brief plan:
 ```
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+## 5. Small Files, Single Purpose
+
+**Split code across small, single-purpose files. Agents read and edit small files more reliably than large ones.**
+
+Scope: *file and module layout* - not how much code you write.
+
+- One function, component, or module per file - where it doesn't hurt readability.
+- Split a file once it grows past one clear responsibility.
+- Large files bloat agent context and produce bigger, riskier diffs.
+- A recommendation to improve quality, not a hard line limit.
+
+## 6. Reuse APIs Before Creating
+
+**Check for an existing API before adding one. Extend or reuse before you build new.**
+
+- Search for an existing endpoint that already does the job.
+- If a similar API exists, extend or reuse it instead of duplicating.
+- Create a new API only when nothing existing can reasonably be extended.
+- Define HTTP APIs with an OpenAPI spec where possible - a single source of truth for clients and docs.
