@@ -120,7 +120,7 @@ LLMs reach for a fresh endpoint instead of finding the one that already exists:
 
 From within Claude Code, first add the marketplace:
 ```
-/plugin marketplace add hoko-corp/hoko-agent-guidelines
+/plugin marketplace add HOKOCORP/hoko-agent-guidelines
 ```
 
 Then install the plugin:
@@ -134,13 +134,13 @@ This installs the guidelines as a Claude Code plugin, making the skill available
 
 New project:
 ```bash
-curl -o CLAUDE.md https://raw.githubusercontent.com/hoko-corp/hoko-agent-guidelines/main/CLAUDE.md
+curl -o CLAUDE.md https://raw.githubusercontent.com/HOKOCORP/hoko-agent-guidelines/main/CLAUDE.md
 ```
 
 Existing project (append):
 ```bash
 echo "" >> CLAUDE.md
-curl https://raw.githubusercontent.com/hoko-corp/hoko-agent-guidelines/main/CLAUDE.md >> CLAUDE.md
+curl https://raw.githubusercontent.com/HOKOCORP/hoko-agent-guidelines/main/CLAUDE.md >> CLAUDE.md
 ```
 
 ## Using with Cursor
