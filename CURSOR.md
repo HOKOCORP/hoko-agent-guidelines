@@ -25,4 +25,4 @@ If you want the same content as a reusable skill under `~/.cursor/skills`, use [
 
 ## For contributors
 
-When you change the six principles, update all three auto-loaded instruction files — **[`CLAUDE.md`](CLAUDE.md)**, **[`.cursor/rules/hoko-agent-guidelines.mdc`](.cursor/rules/hoko-agent-guidelines.mdc)**, and **[`skills/hoko-agent-guidelines/SKILL.md`](skills/hoko-agent-guidelines/SKILL.md)** — then run [`scripts/check-sync.sh`](scripts/check-sync.sh) to confirm the principle bodies stay identical. Wire the same script into CI or a pre-commit hook to catch drift automatically.
+When you change the seven principles, update all three auto-loaded instruction files — **[`CLAUDE.md`](CLAUDE.md)**, **[`.cursor/rules/hoko-agent-guidelines.mdc`](.cursor/rules/hoko-agent-guidelines.mdc)**, and **[`skills/hoko-agent-guidelines/SKILL.md`](skills/hoko-agent-guidelines/SKILL.md)** — then run [`scripts/check-sync.sh`](scripts/check-sync.sh) to confirm the principle bodies stay identical. Wire the same script into CI or a pre-commit hook to catch drift automatically.

@@ -12,7 +12,7 @@ AI coding agents share a recurring set of failure modes:
 
 ## The Solution
 
-Six principles in one file that directly address these issues:
+Seven principles in one file that directly address these issues:
 
 | Principle | Addresses |
 |-----------|-----------|
@@ -22,8 +22,9 @@ Six principles in one file that directly address these issues:
 | **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
 | **Small Files, Single Purpose** | Large files, context bloat, unreliable edits |
 | **Reuse APIs Before Creating** | Duplicate endpoints, redundant APIs, inconsistent contracts |
+| **Guard Secrets** | Leaked credentials, secrets in output or commits |
 
-## The Six Principles in Detail
+## The Seven Principles in Detail
 
 ### 1. Think Before Coding
 
@@ -113,6 +114,17 @@ LLMs reach for a fresh endpoint instead of finding the one that already exists:
 - If a similar API exists, extend or reuse it instead of duplicating
 - Create a new API only when nothing existing can reasonably be extended
 - Define HTTP APIs with an OpenAPI spec where possible — a single source of truth for clients and docs
+
+### 7. Guard Secrets
+
+**Never expose credentials. Don't read secret stores unless the task requires it.**
+
+Leaking a secret means rotating it — the cleanup costs far more than the shortcut saved:
+
+- Never print API keys, tokens, passwords, or secret values in output
+- Don't read credential files (`.env`, `~/.claude/.credentials.json`, key files) unless the task explicitly needs them
+- Don't run `env` / `printenv` to fish for secrets; don't commit secrets or paste them into code
+- When you must reference a secret, use its name or a placeholder, not its value
 
 ## Install
 

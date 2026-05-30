@@ -87,3 +87,12 @@ Scope: *file and module layout* - not how much code you write.
 - If a similar API exists, extend or reuse it instead of duplicating.
 - Create a new API only when nothing existing can reasonably be extended.
 - Define HTTP APIs with an OpenAPI spec where possible - a single source of truth for clients and docs.
+
+## 7. Guard Secrets
+
+**Never expose credentials. Don't read secret stores unless the task requires it.**
+
+- Never print API keys, tokens, passwords, or secret values in output.
+- Don't read credential files (.env, ~/.claude/.credentials.json, key files) unless the task explicitly needs them.
+- Don't run env / printenv to fish for secrets; don't commit secrets or paste them into code.
+- When you must reference a secret, use its name or a placeholder, not its value.
