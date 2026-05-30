@@ -159,6 +159,26 @@ curl https://raw.githubusercontent.com/HOKOCORP/hoko-agent-guidelines/main/CLAUD
 
 This repository includes a committed Cursor project rule ([`.cursor/rules/hoko-agent-guidelines.mdc`](.cursor/rules/hoko-agent-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
 
+## Enforcing Guard Secrets (hooks)
+
+Principles #1–#6 are *guidance* — the agent reads them and complies. That's the right model for code-quality rules. **Principle #7 is different**: a single leaked credential is an incident, not a smell, so guidance alone is too soft. It ships with an optional **enforcement hook** as a deterministic backstop.
+
+| Layer | Mechanism | Guarantee |
+|-------|-----------|-----------|
+| Guidance | `CLAUDE.md` #7 | Advisory — shapes proactive behavior, explains *why* |
+| Enforcement | [`hooks/guard-secrets.sh`](hooks/guard-secrets.sh) | A `PreToolUse` hook that **blocks** the tool call (exit code 2) |
+
+Keep **both** — they cover different gaps (see the limit below).
+
+**Enable it.** Merge [`settings.snippet.json`](settings.snippet.json) into your settings:
+
+- **Per project:** `.claude/settings.json` — the snippet uses `$CLAUDE_PROJECT_DIR/hooks/guard-secrets.sh`, so it works once this repo's `hooks/` is in the project.
+- **Global:** `~/.claude/settings.json` — replace `$CLAUDE_PROJECT_DIR` with the absolute path to `hooks/guard-secrets.sh`.
+
+**What it blocks** (before the tool runs): reading/writing credential files (`.env`, `.credentials.json`, SSH keys, `*.pem`, …); `env` / `printenv` secret-fishing; reading a credential file via the shell (`cat .env`, `base64 id_rsa`, …); and committing secrets when [`gitleaks`](https://github.com/gitleaks/gitleaks) is installed. Requires `jq` (fails open with a warning if absent).
+
+**Honest limit.** Hooks fire on *tool calls* only. A secret the model types directly into its reply isn't a tool call, so no hook can catch it — which is exactly why the `CLAUDE.md` guidance stays. Defense in depth, not a single silver bullet.
+
 ## Key Insight
 
 AI agents are exceptionally good at looping until they meet a specific goal. Don't just tell an agent what to do — give it success criteria and let it iterate.
