@@ -1,0 +1,17 @@
+name: check-sync
+
+# Enforce that the principle bodies stay byte-identical across the three
+# auto-loaded instruction files (CLAUDE.md, the Cursor rule, and SKILL.md).
+# Runs scripts/check-sync.sh, which exits non-zero on drift.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify principles are in sync
+        run: bash scripts/check-sync.sh

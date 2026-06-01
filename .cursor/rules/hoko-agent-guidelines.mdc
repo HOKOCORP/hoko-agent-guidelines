@@ -96,6 +96,17 @@ Scope: *file and module layout* - not how much code you write.
 - Don't run env / printenv to fish for secrets; don't commit secrets or paste them into code.
 - When you must reference a secret, use its name or a placeholder, not its value.
 
+## 8. Finish What You Start
+
+**No placeholders, no skeletons, no silent TODOs. Complete the work in scope - or flag what's left out loud.**
+
+Scope: completeness of *what you were asked to build* - not adding work beyond it (that's Principle #2).
+
+- No stub functions, fake return values, or `TODO`/`FIXME` left where real logic belongs.
+- Don't mark something "acceptable for now" or "good enough for Phase X" - placeholders look done, get forgotten, and ship.
+- A skeleton that returns hardcoded or empty data is more dangerous than an honest error - it hides the gap instead of surfacing it.
+- If a piece genuinely can't be finished now, don't bury it in a comment. Say so explicitly and track it where it won't be missed.
+
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.

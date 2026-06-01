@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Verify the six principle bodies are identical across the three auto-loaded
+# Verify the eight principle bodies are identical across the three auto-loaded
 # instruction files. They are intentional copies — each tool needs its own
 # file format (CLAUDE.md, a Cursor .mdc rule, and a SKILL.md) — so this guards
 # against them silently drifting out of sync.
@@ -9,7 +9,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-# Print principles 1-6 from a file: from the "## 1." heading up to (but not
+# Print principles 1-8 from a file: from the "## 1." heading up to (but not
 # including) the trailing "---" footer, with trailing blank lines trimmed.
 extract() {
   awk '
