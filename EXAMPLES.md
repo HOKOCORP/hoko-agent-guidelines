@@ -1,6 +1,6 @@
 # Examples
 
-Real-world code examples demonstrating the seven principles. Each example shows what LLMs commonly do wrong and how to fix it.
+Real-world code examples demonstrating the eight principles. Each example shows what LLMs commonly do wrong and how to fix it.
 
 One file per principle (Principle #5 — Small Files, Single Purpose — applied to the docs themselves):
 
@@ -11,6 +11,7 @@ One file per principle (Principle #5 — Small Files, Single Purpose — applied
 5. [Small Files, Single Purpose](examples/5-small-files-single-purpose.md)
 6. [Reuse APIs Before Creating](examples/6-reuse-apis-before-creating.md)
 7. [Guard Secrets](examples/7-guard-secrets.md)
+8. [Finish What You Start](examples/8-finish-what-you-start.md)
 
 ## Anti-Patterns Summary
 
@@ -23,6 +24,7 @@ One file per principle (Principle #5 — Small Files, Single Purpose — applied
 | Small Files | Model, persistence, routes, and logic in one 400-line file | One purpose per file; split when a file does several jobs |
 | Reuse APIs | Adds a duplicate endpoint without checking what exists | Search first; extend/reuse existing APIs; spec new ones in OpenAPI |
 | Guard Secrets | Prints live tokens to chat; commits .env to git | Reference by name, never value; read from env; git-ignore secrets |
+| Finish What You Start | Stubs the hard part with `# TODO: Phase 2` and returns fake data | Implement it now, or flag the gap loudly — no silent placeholders |
 
 ## Key Insight
 

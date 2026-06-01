@@ -9,10 +9,11 @@ AI coding agents share a recurring set of failure modes:
 - **They make wrong assumptions and run with them** — without checking, seeking clarification, surfacing inconsistencies, presenting tradeoffs, or pushing back when they should.
 - **They overcomplicate** — bloating code and APIs, adding abstractions nobody asked for, and writing 1000 lines where 100 would do.
 - **They cause collateral damage** — changing or removing comments and code they don't fully understand, even when it's orthogonal to the task.
+- **They leave work half-done** — stubs, `TODO`s, and "good enough for now" placeholders that look finished, get forgotten, and ship incomplete.
 
 ## The Solution
 
-Seven principles in one file that directly address these issues:
+Eight principles in one file that directly address these issues:
 
 | Principle | Addresses |
 |-----------|-----------|
@@ -23,8 +24,9 @@ Seven principles in one file that directly address these issues:
 | **Small Files, Single Purpose** | Large files, context bloat, unreliable edits |
 | **Reuse APIs Before Creating** | Duplicate endpoints, redundant APIs, inconsistent contracts |
 | **Guard Secrets** | Leaked credentials, secrets in output or commits |
+| **Finish What You Start** | Placeholders, skeletons, silent TODOs that ship incomplete |
 
-## The Seven Principles in Detail
+## The Eight Principles in Detail
 
 ### 1. Think Before Coding
 
@@ -126,6 +128,19 @@ Leaking a secret means rotating it — the cleanup costs far more than the short
 - Don't run `env` / `printenv` to fish for secrets; don't commit secrets or paste them into code
 - When you must reference a secret, use its name or a placeholder, not its value
 
+### 8. Finish What You Start
+
+**No placeholders, no skeletons, no silent TODOs. Complete the work in scope — or flag what's left out loud.**
+
+Scope: completeness of *what you were asked to build* — not adding work beyond it (that's Principle #2).
+
+LLMs love to defer the hard part with a stub and a `# Phase 2` comment — and that comment is the last anyone ever sees of it:
+
+- No stub functions, fake return values, or `TODO`/`FIXME` left where real logic belongs
+- Don't mark something "acceptable for now" or "good enough for Phase X" — placeholders look done, get forgotten, and ship
+- A skeleton that returns hardcoded or empty data is more dangerous than an honest error — it hides the gap instead of surfacing it
+- If a piece genuinely can't be finished now, don't bury it in a comment — say so explicitly and track it where it won't be missed
+
 ## Install
 
 **Option A: Claude Code Plugin (recommended)**
@@ -161,7 +176,7 @@ This repository includes a committed Cursor project rule ([`.cursor/rules/hoko-a
 
 ## Enforcing Guard Secrets (hooks)
 
-Principles #1–#6 are *guidance* — the agent reads them and complies. That's the right model for code-quality rules. **Principle #7 is different**: a single leaked credential is an incident, not a smell, so guidance alone is too soft. It ships with an optional **enforcement hook** as a deterministic backstop.
+Principles #1–#6 and #8 are *guidance* — the agent reads them and complies. That's the right model for code-quality rules. **Principle #7 is different**: a single leaked credential is an incident, not a smell, so guidance alone is too soft. It ships with an optional **enforcement hook** as a deterministic backstop.
 
 | Layer | Mechanism | Guarantee |
 |-------|-----------|-----------|
